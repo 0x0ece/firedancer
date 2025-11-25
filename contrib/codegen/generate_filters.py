@@ -319,6 +319,7 @@ if __name__ == '__main__':
 #include <sys/syscall.h>
 #include <signal.h>
 #include <stddef.h>
+#include <time.h>
 
 #if defined(__i386__)
 # define ARCH_NR  AUDIT_ARCH_I386

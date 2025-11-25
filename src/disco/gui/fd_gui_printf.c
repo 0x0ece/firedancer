@@ -732,23 +732,25 @@ fd_gui_printf_tile_timers( fd_gui_t *                   gui,
       continue;
     }
 
-    ulong cur_total = (cur[ i ].caughtup_housekeeping_ticks
-                     + cur[ i ].processing_housekeeping_ticks
-                     + cur[ i ].backpressure_housekeeping_ticks
-                     + cur[ i ].caughtup_prefrag_ticks
-                     + cur[ i ].processing_prefrag_ticks
-                     + cur[ i ].backpressure_prefrag_ticks
-                     + cur[ i ].caughtup_postfrag_ticks
-                     + cur[ i ].processing_postfrag_ticks);
+    double cur_total = (double)(cur[ i ].caughtup_housekeeping_ticks
+                                + cur[ i ].processing_housekeeping_ticks
+                                + cur[ i ].backpressure_housekeeping_ticks
+                                + cur[ i ].caughtup_prefrag_ticks
+                                + cur[ i ].processing_prefrag_ticks
+                                + cur[ i ].backpressure_prefrag_ticks
+                                + cur[ i ].caughtup_postfrag_ticks
+                                + cur[ i ].processing_postfrag_ticks
+                                + cur[ i ].sleeping_ticks);
 
-    ulong prev_total = (prev[ i ].caughtup_housekeeping_ticks
-                      + prev[ i ].processing_housekeeping_ticks
-                      + prev[ i ].backpressure_housekeeping_ticks
-                      + prev[ i ].caughtup_prefrag_ticks
-                      + prev[ i ].processing_prefrag_ticks
-                      + prev[ i ].backpressure_prefrag_ticks
-                      + prev[ i ].caughtup_postfrag_ticks
-                      + prev[ i ].processing_postfrag_ticks);
+    double prev_total = (double)(prev[ i ].caughtup_housekeeping_ticks
+                                  + prev[ i ].processing_housekeeping_ticks
+                                  + prev[ i ].backpressure_housekeeping_ticks
+                                  + prev[ i ].caughtup_prefrag_ticks
+                                  + prev[ i ].processing_prefrag_ticks
+                                  + prev[ i ].backpressure_prefrag_ticks
+                                  + prev[ i ].caughtup_postfrag_ticks
+                                  + prev[ i ].processing_postfrag_ticks
+                                  + prev[ i ].sleeping_ticks);
 
     double idle_ratio;
     if( FD_UNLIKELY( cur_total==prev_total ) ) {
