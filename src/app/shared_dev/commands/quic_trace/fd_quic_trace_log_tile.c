@@ -57,7 +57,7 @@ after_frag( fd_quic_trace_ctx_t * ctx,
 #include "../../../../disco/stem/fd_stem.c"
 
 void
-fd_quic_trace_log_tile( fd_quic_trace_ctx_t  * ctx,
+fd_quic_trace_log_tile( fd_quic_trace_ctx_t  * ctx FD_PARAM_UNUSED,
                         fd_frag_meta_t const * in_mcache ) {
   fd_frag_meta_t const * in_mcache_tbl[1] = { in_mcache };
 
@@ -70,19 +70,21 @@ fd_quic_trace_log_tile( fd_quic_trace_ctx_t  * ctx,
 
   uchar scratch[ sizeof(fd_stem_tile_in_t)+128 ] __attribute__((aligned(FD_STEM_SCRATCH_ALIGN)));
 
-  stem_run1( /* in_cnt     */ 1UL,
-             /* in_mcache  */ in_mcache_tbl,
-             /* in_fseq    */ fseq_tbl,
-             /* out_cnt    */ 0UL,
-             /* out_mcache */ NULL,
-             /* cons_cnt   */ 0UL,
-             /* cons_out   */ NULL,
-             /* cons_fseq  */ NULL,
-             /* stem_burst */ 1UL,
-             /* stem_lazy  */ 0L,
-             /* rng        */ rng,
-             /* scratch    */ scratch,
-             /* ctx        */ ctx );
+  stem_run1( /* in_cnt       */ 1UL,
+             /* in_mcache    */ in_mcache_tbl,
+             /* in_fseq      */ fseq_tbl,
+             /* out_cnt      */ 0UL,
+             /* out_mcache   */ NULL,
+             /* cons_cnt     */ 0UL,
+             /* cons_out     */ NULL,
+             /* cons_fseq    */ NULL,
+             /* idle_sleep   */ 0,
+             /* stem_burst   */ 1UL,
+             /* stem_lazy    */ 0L,
+             /* rng          */ rng,
+             /* leader_state */ NULL,
+             /* scratch      */ scratch,
+             /* ctx          */ NULL );
 
   fd_fseq_delete( fd_fseq_leave( fseq ) );
 }
